@@ -1,7 +1,7 @@
 {
   "move": "up",
-  "intensity": 0.4907461171004684,
-  "reason": "direct controller: target 458.1, center 490.0",
-  "createdAt": "2026-06-01T08:10:20.333Z",
+  "intensity": 1,
+  "reason": "direct controller: target 367.9, center 438.1",
+  "createdAt": "2026-06-01T09:34:54.698Z",
   "client": "codex-direct-controller"
 }

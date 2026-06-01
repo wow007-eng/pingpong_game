@@ -37,6 +37,17 @@ Click **Serve** or press `Space` to start a rally.
 
 Use the **Easy**, **Medium**, and **Hard** buttons to change the match speed and challenge.
 
+## Maps
+
+Use the map buttons to switch arenas:
+
+- **Lagoon**: bright blue court with wave markings.
+- **Blossom**: pink court with soft petal markings.
+- **Sunset**: warm orange court with circular sun markings.
+- **Mint**: green court with leaf markings.
+
+Each map uses its own generated arena image from the `assets/` folder.
+
 ## Power-Ups
 
 Power-ups appear during live rallies. Both you and Codex can collect side pickups.

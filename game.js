@@ -11,6 +11,7 @@ const serveButton = document.querySelector("#serveButton");
 const pauseButton = document.querySelector("#pauseButton");
 const resetButton = document.querySelector("#resetButton");
 const modeButtons = [...document.querySelectorAll(".mode")];
+const mapButtons = [...document.querySelectorAll(".map")];
 
 const modes = {
   easy: { label: "Easy", aiSpeed: 4.4, error: 56, reaction: 0.055, ballSpeed: 6.5 },
@@ -24,8 +25,80 @@ const powerTypes = [
   { id: "power-shot", label: "Power Shot", color: "#ffd166" }
 ];
 
+const maps = {
+  lagoon: {
+    label: "Lagoon",
+    image: "assets/map-lagoon.png",
+    background: ["#f7fdff", "#e8f8ff", "#effcff"],
+    grid: "rgba(26, 167, 216, 0.09)",
+    border: "rgba(26, 167, 216, 0.36)",
+    inner: "rgba(62, 212, 137, 0.32)",
+    center: "rgba(22, 32, 51, 0.18)",
+    player: "#3ed489",
+    ai: "#ef5a6f",
+    ball: "#162033",
+    trail: "#1aa7d8",
+    accent: "#1aa7d8",
+    pattern: "waves"
+  },
+  blossom: {
+    label: "Blossom",
+    image: "assets/map-blossom.png",
+    background: ["#fff9fd", "#ffeef7", "#f4fbff"],
+    grid: "rgba(240, 110, 169, 0.09)",
+    border: "rgba(240, 110, 169, 0.34)",
+    inner: "rgba(128, 184, 255, 0.28)",
+    center: "rgba(83, 48, 74, 0.18)",
+    player: "#37c58c",
+    ai: "#f06ea9",
+    ball: "#43283b",
+    trail: "#f06ea9",
+    accent: "#f06ea9",
+    pattern: "petals"
+  },
+  sunset: {
+    label: "Sunset",
+    image: "assets/map-sunset.png",
+    background: ["#fffaf0", "#fff0d5", "#ffe9ef"],
+    grid: "rgba(244, 165, 36, 0.11)",
+    border: "rgba(244, 165, 36, 0.38)",
+    inner: "rgba(239, 90, 111, 0.24)",
+    center: "rgba(90, 57, 23, 0.2)",
+    player: "#23b58f",
+    ai: "#ef6a5a",
+    ball: "#382512",
+    trail: "#f4a524",
+    accent: "#f4a524",
+    pattern: "sun"
+  },
+  mint: {
+    label: "Mint",
+    image: "assets/map-mint.png",
+    background: ["#fbfff9", "#eafff3", "#eff8ff"],
+    grid: "rgba(62, 212, 137, 0.1)",
+    border: "rgba(62, 212, 137, 0.38)",
+    inner: "rgba(26, 167, 216, 0.26)",
+    center: "rgba(20, 76, 57, 0.18)",
+    player: "#20bf72",
+    ai: "#1aa7d8",
+    ball: "#143b2d",
+    trail: "#3ed489",
+    accent: "#20bf72",
+    pattern: "leaves"
+  }
+};
+
+const mapImages = Object.fromEntries(
+  Object.entries(maps).map(([id, map]) => {
+    const image = new Image();
+    image.src = map.image;
+    return [id, image];
+  })
+);
+
 const state = {
   mode: "medium",
+  map: "lagoon",
   running: false,
   paused: false,
   playerScore: 0,
@@ -122,6 +195,13 @@ function setMode(mode) {
   modeBadgeEl.textContent = modes[mode].label;
   modeButtons.forEach((button) => button.classList.toggle("active", button.dataset.mode === mode));
   if (!state.running) resetGame();
+}
+
+function setMap(map) {
+  if (!maps[map]) return;
+  state.map = map;
+  mapButtons.forEach((button) => button.classList.toggle("active", button.dataset.map === map));
+  setStatus(`${maps[map].label} arena selected`);
 }
 
 function updatePlayer() {
@@ -337,15 +417,25 @@ function updateBall() {
 }
 
 function drawCourt() {
+  const map = maps[state.map];
+  const mapImage = mapImages[state.map];
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const courtGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  courtGradient.addColorStop(0, "#f7fdff");
-  courtGradient.addColorStop(0.48, "#eaf8ff");
-  courtGradient.addColorStop(1, "#fff7e8");
-  ctx.fillStyle = courtGradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "rgba(26, 167, 216, 0.08)";
+  if (mapImage?.complete && mapImage.naturalWidth > 0) {
+    ctx.drawImage(mapImage, 0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.18)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  } else {
+    const courtGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    courtGradient.addColorStop(0, map.background[0]);
+    courtGradient.addColorStop(0.48, map.background[1]);
+    courtGradient.addColorStop(1, map.background[2]);
+    ctx.fillStyle = courtGradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    drawMapPattern(map);
+  }
+
+  ctx.fillStyle = map.grid;
   for (let x = 48; x < canvas.width; x += 96) {
     ctx.fillRect(x, 18, 1, canvas.height - 36);
   }
@@ -353,19 +443,77 @@ function drawCourt() {
     ctx.fillRect(18, y, canvas.width - 36, 1);
   }
 
-  ctx.strokeStyle = "rgba(26, 167, 216, 0.34)";
+  ctx.strokeStyle = map.border;
   ctx.lineWidth = 2;
   ctx.strokeRect(18, 18, canvas.width - 36, canvas.height - 36);
-  ctx.strokeStyle = "rgba(62, 212, 137, 0.32)";
+  ctx.strokeStyle = map.inner;
   ctx.strokeRect(32, 32, canvas.width - 64, canvas.height - 64);
 
   ctx.setLineDash([16, 18]);
   ctx.beginPath();
   ctx.moveTo(canvas.width / 2, 26);
   ctx.lineTo(canvas.width / 2, canvas.height - 26);
-  ctx.strokeStyle = "rgba(22, 32, 51, 0.18)";
+  ctx.strokeStyle = map.center;
   ctx.stroke();
   ctx.setLineDash([]);
+}
+
+function drawMapPattern(map) {
+  ctx.save();
+  ctx.globalAlpha = 0.56;
+  ctx.strokeStyle = map.accent;
+  ctx.fillStyle = map.accent;
+
+  if (map.pattern === "waves") {
+    ctx.globalAlpha = 0.16;
+    ctx.lineWidth = 3;
+    for (let y = 78; y < canvas.height; y += 82) {
+      ctx.beginPath();
+      for (let x = 30; x < canvas.width - 30; x += 24) {
+        const waveY = y + Math.sin(x / 34) * 8;
+        x === 30 ? ctx.moveTo(x, waveY) : ctx.lineTo(x, waveY);
+      }
+      ctx.stroke();
+    }
+  }
+
+  if (map.pattern === "petals") {
+    ctx.globalAlpha = 0.13;
+    for (let x = 90; x < canvas.width; x += 150) {
+      for (let y = 82; y < canvas.height; y += 116) {
+        ctx.beginPath();
+        ctx.ellipse(x, y, 18, 8, Math.PI / 4, 0, Math.PI * 2);
+        ctx.ellipse(x, y, 18, 8, -Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  if (map.pattern === "sun") {
+    ctx.globalAlpha = 0.15;
+    ctx.lineWidth = 2;
+    for (let r = 58; r < 520; r += 52) {
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, canvas.height / 2, r, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+
+  if (map.pattern === "leaves") {
+    ctx.globalAlpha = 0.13;
+    for (let x = 78; x < canvas.width; x += 135) {
+      for (let y = 76; y < canvas.height; y += 105) {
+        ctx.beginPath();
+        ctx.ellipse(x, y, 24, 9, -Math.PI / 7, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(x + 24, y + 16, 20, 8, Math.PI / 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  ctx.restore();
 }
 
 function drawPaddle(paddle, color, owner) {
@@ -391,19 +539,20 @@ function drawPaddle(paddle, color, owner) {
 }
 
 function drawBall() {
+  const map = maps[state.map];
   const ball = state.ball;
   ball.trail.forEach((point, index) => {
     ctx.globalAlpha = (ball.trail.length - index) / ball.trail.length * 0.28;
     ctx.beginPath();
     ctx.arc(point.x, point.y, ball.r + index * 0.6, 0, Math.PI * 2);
-    ctx.fillStyle = "#42d9ff";
+    ctx.fillStyle = map.trail;
     ctx.fill();
   });
   ctx.globalAlpha = 1;
   ctx.beginPath();
   ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
-  ctx.fillStyle = "#162033";
-  ctx.shadowColor = "#42d9ff";
+  ctx.fillStyle = map.ball;
+  ctx.shadowColor = map.trail;
   ctx.shadowBlur = 14;
   ctx.fill();
   ctx.shadowBlur = 0;
@@ -446,8 +595,8 @@ function tick() {
   }
 
   drawCourt();
-  drawPaddle(state.player, "#8ef5b0", "player");
-  drawPaddle(state.ai, "#ff6b78", "ai");
+  drawPaddle(state.player, maps[state.map].player, "player");
+  drawPaddle(state.ai, maps[state.map].ai, "ai");
   drawPowerUp();
   drawBall();
   requestAnimationFrame(tick);
@@ -478,6 +627,7 @@ pauseButton.addEventListener("click", () => {
 });
 resetButton.addEventListener("click", resetGame);
 modeButtons.forEach((button) => button.addEventListener("click", () => setMode(button.dataset.mode)));
+mapButtons.forEach((button) => button.addEventListener("click", () => setMap(button.dataset.map)));
 
 resetGame();
 tick();
