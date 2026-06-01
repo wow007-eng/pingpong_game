@@ -1,0 +1,164 @@
+{
+  "turn": 1,
+  "battleMode": "player-choice",
+  "codexBehaviorMode": "tactical",
+  "selectedPlayerAction": null,
+  "winner": null,
+  "creatures": {
+    "player": {
+      "id": "player",
+      "name": "Lumora",
+      "type": "Bloom",
+      "hp": 120,
+      "maxHp": 120,
+      "energy": 32,
+      "maxEnergy": 70,
+      "attack": 24,
+      "defense": 15,
+      "speed": 18,
+      "statusEffects": [],
+      "moves": [
+        {
+          "id": "glimmer-jab",
+          "name": "Glimmer Jab",
+          "type": "Bloom",
+          "kind": "quick",
+          "power": 18,
+          "energyCost": 0,
+          "energyGain": 12,
+          "description": "Quick strike. Restores 12 energy."
+        },
+        {
+          "id": "vine-lash",
+          "name": "Vine Lash",
+          "type": "Bloom",
+          "kind": "heavy",
+          "power": 28,
+          "energyCost": 0,
+          "energyGain": 4,
+          "description": "Reliable heavy strike. May stun."
+        },
+        {
+          "id": "prism-guard",
+          "name": "Prism Guard",
+          "type": "Bloom",
+          "kind": "guard",
+          "power": 0,
+          "energyCost": 0,
+          "energyGain": 10,
+          "description": "Gain shield and energy."
+        },
+        {
+          "id": "bloom-burst",
+          "name": "Bloom Burst",
+          "type": "Bloom",
+          "kind": "special",
+          "power": 42,
+          "energyCost": 28,
+          "energyGain": 0,
+          "description": "Heavy Bloom hit. May regenerate."
+        }
+      ]
+    },
+    "codex": {
+      "id": "codex",
+      "name": "Cindrix",
+      "type": "Ember",
+      "hp": 116,
+      "maxHp": 116,
+      "energy": 34,
+      "maxEnergy": 72,
+      "attack": 25,
+      "defense": 14,
+      "speed": 16,
+      "statusEffects": [],
+      "moves": [
+        {
+          "id": "spark-bite",
+          "name": "Spark Bite",
+          "type": "Ember",
+          "kind": "quick",
+          "power": 17,
+          "energyCost": 0,
+          "energyGain": 12,
+          "description": "Quick bite. Restores 12 energy."
+        },
+        {
+          "id": "ember-claw",
+          "name": "Ember Claw",
+          "type": "Ember",
+          "kind": "heavy",
+          "power": 29,
+          "energyCost": 0,
+          "energyGain": 4,
+          "description": "Reliable heavy strike. May stun."
+        },
+        {
+          "id": "coal-guard",
+          "name": "Coal Guard",
+          "type": "Ember",
+          "kind": "guard",
+          "power": 0,
+          "energyCost": 0,
+          "energyGain": 10,
+          "description": "Gain shield and energy."
+        },
+        {
+          "id": "flare-surge",
+          "name": "Flare Surge",
+          "type": "Ember",
+          "kind": "special",
+          "power": 44,
+          "energyCost": 30,
+          "energyGain": 0,
+          "description": "Heavy Ember hit. May burn."
+        }
+      ]
+    }
+  },
+  "availableCodexMoves": [
+    {
+      "id": "spark-bite",
+      "name": "Spark Bite",
+      "type": "Ember",
+      "kind": "quick",
+      "power": 17,
+      "energyCost": 0,
+      "energyGain": 12,
+      "description": "Quick bite. Restores 12 energy."
+    },
+    {
+      "id": "ember-claw",
+      "name": "Ember Claw",
+      "type": "Ember",
+      "kind": "heavy",
+      "power": 29,
+      "energyCost": 0,
+      "energyGain": 4,
+      "description": "Reliable heavy strike. May stun."
+    },
+    {
+      "id": "coal-guard",
+      "name": "Coal Guard",
+      "type": "Ember",
+      "kind": "guard",
+      "power": 0,
+      "energyCost": 0,
+      "energyGain": 10,
+      "description": "Gain shield and energy."
+    },
+    {
+      "id": "flare-surge",
+      "name": "Flare Surge",
+      "type": "Ember",
+      "kind": "special",
+      "power": 44,
+      "energyCost": 30,
+      "energyGain": 0,
+      "description": "Heavy Ember hit. May burn."
+    }
+  ],
+  "recentEvents": [
+    "A bright clearing opens. Lumora faces Cindrix."
+  ]
+}

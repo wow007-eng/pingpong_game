@@ -1,0 +1,11 @@
+{
+  "name": "codex-monster-battle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A turn-based browser creature battle game with a JSON bridge and MCP server for Codex actions.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "mcp": "node mcp-server.js"
+  }
+}

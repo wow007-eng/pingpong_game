@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codex Monster Battle</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Pixel UI Battle Bridge</p>
+          <h1>Codex Monster Battle</h1>
+        </div>
+        <div class="top-actions">
+          <label class="mode-picker">
+            Codex mode
+            <select id="codexMode">
+              <option value="tactical">tactical</option>
+              <option value="cautious">cautious</option>
+              <option value="aggressive">aggressive</option>
+              <option value="random">random</option>
+            </select>
+          </label>
+          <button id="restartBtn" class="secondary">Restart</button>
+        </div>
+      </header>
+
+      <section class="battle-grid">
+        <article class="creature-card player-card">
+          <div class="card-head">
+            <div>
+              <span class="tag bloom">Bloom</span>
+              <h2>Lumora</h2>
+            </div>
+            <strong id="playerHpText">120 / 120 HP</strong>
+          </div>
+          <div class="meter hp"><span id="playerHpBar"></span></div>
+          <div class="meter energy"><span id="playerEnergyBar"></span></div>
+          <div class="stats" id="playerStats"></div>
+          <div class="status-list" id="playerStatuses"></div>
+        </article>
+
+        <section class="arena" aria-live="polite">
+          <img
+            class="arena-art"
+            src="assets/codex-monster-battle-sheet.png"
+            alt="Original pixel art sheet showing Lumora, Cindrix, and a fantasy battlefield"
+          />
+          <div class="combatant lumora" aria-label="Lumora sprite"></div>
+          <div class="combatant cindrix" aria-label="Cindrix sprite"></div>
+          <div id="playerFloat" class="float-damage"></div>
+          <div id="codexFloat" class="float-damage"></div>
+          <div class="turn-plate">
+            <span id="turnNumber">Turn 1</span>
+            <strong id="battleMode">Player choosing</strong>
+          </div>
+        </section>
+
+        <article class="creature-card codex-card">
+          <div class="card-head">
+            <div>
+              <span class="tag ember">Ember</span>
+              <h2>Cindrix</h2>
+            </div>
+            <strong id="codexHpText">116 / 116 HP</strong>
+          </div>
+          <div class="meter hp"><span id="codexHpBar"></span></div>
+          <div class="meter energy"><span id="codexEnergyBar"></span></div>
+          <div class="stats" id="codexStats"></div>
+          <div class="status-list" id="codexStatuses"></div>
+        </article>
+      </section>
+
+      <section class="controls">
+        <div>
+          <h2>Choose Lumora's move</h2>
+          <div id="moveButtons" class="move-grid"></div>
+        </div>
+        <aside class="bridge-panel">
+          <h2>MCP turn bridge</h2>
+          <p id="selectedAction">Selected action: none</p>
+          <button id="requestCodexBtn" class="primary">Request Codex Move</button>
+          <button id="localBotBtn" class="secondary">Local Bot Move (testing only)</button>
+          <p class="hint">After Lumora acts, Codex can answer through MCP. This button checks the JSON action file when you are ready.</p>
+        </aside>
+      </section>
+
+      <section class="log-panel">
+        <div class="log-head">
+          <h2>Battle log</h2>
+          <span id="bridgeStatus">Bridge ready</span>
+        </div>
+        <ol id="battleLog"></ol>
+      </section>
+    </main>
+
+    <script src="game.js" type="module"></script>
+  </body>
+</html>

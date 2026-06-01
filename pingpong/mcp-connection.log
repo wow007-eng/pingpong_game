@@ -10165,3 +10165,7 @@
 [2026-06-01T09:09:15.082Z] gameplay used codex mcp command {"server":"codex-pingpong","tool":"pong_set_move","move":"up","velocity":-4.8,"commandAgeMs":27}
 [2026-06-01T09:09:15.164Z] gameplay used codex mcp command {"server":"codex-pingpong","tool":"pong_set_move","move":"up","velocity":-9.304,"commandAgeMs":46}
 [2026-06-01T09:09:15.246Z] gameplay used codex mcp command {"server":"codex-pingpong","tool":"pong_set_move","move":"up","velocity":-10,"commandAgeMs":47}
+[2026-06-01T09:36:37.031Z] pingpong mcp server started {"server":"codex-pingpong","logPath":"D:\\Documents\\Game by Codex\\mcp-connection.log"}
+[2026-06-01T09:37:06.801Z] pingpong mcp server stopped
+[2026-06-01T09:37:38.296Z] pingpong mcp server started {"server":"codex-pingpong","logPath":"D:\\Documents\\Game by Codex\\mcp-connection.log"}
+[2026-06-01T09:38:07.916Z] pingpong mcp server stopped

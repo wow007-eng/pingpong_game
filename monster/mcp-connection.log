@@ -1,0 +1,13 @@
+[2026-06-01T09:49:23.386Z] browser wrote live state for turn 1
+[2026-06-01T09:49:42.905Z] browser wrote live state for turn 1
+[2026-06-01T09:49:43.598Z] local bot action flare-surge
+[2026-06-01T09:49:43.616Z] browser wrote live state for turn 2
+[2026-06-01T09:49:56.114Z] codex-monster-battle MCP server started
+[2026-06-01T09:49:56.233Z] battle_get_state turn=2 mode=player-choice
+[2026-06-01T09:50:58.434Z] browser wrote live state for turn 1
+[2026-06-01T09:50:59.171Z] browser wrote live state for turn 1
+[2026-06-01T09:51:18.359Z] codex-monster-battle MCP server started
+[2026-06-01T09:51:18.435Z] battle_set_action turn=1 move=ember-claw valid=true accepted
+[2026-06-01T09:51:33.974Z] browser cleared codex action
+[2026-06-01T09:51:33.993Z] browser wrote live state for turn 2
+[2026-06-01T09:52:46.630Z] browser wrote live state for turn 1
