@@ -1,44 +1,88 @@
 # Codex PingPong
 
-A self-contained Pong game where the player faces a Codex-inspired AI paddle. The game has Easy, Medium, and Hard modes, keyboard and pointer controls, and a small MCP server that Codex-compatible clients can attach to.
+A browser Pong game where you play against a Codex-controlled paddle. The game includes keyboard, mouse, and touch controls, three difficulty modes, and power-ups that can be collected by either player.
 
-## Play
+## Requirements
 
-Open `index.html` directly in a browser, or run the local server:
+- Node.js
+- npm
+
+There are no third-party package dependencies.
+
+## Run the Game
+
+From this folder, start the local server:
 
 ```bash
-npm start
+npm run start
 ```
 
-Then visit `http://localhost:4173`.
+Open the game in your browser:
 
-During live play, the browser sends the latest game state to the Node server through `POST /api/pong-move`. The server writes that state to `pong-live-state.json` and only moves the Codex paddle when Codex has sent a fresh command through the MCP tool `pong_set_move`. If Codex does not send a command, the paddle holds still.
+```text
+http://localhost:4173
+```
 
-Controls:
+Click **Serve** or press `Space` to start a rally.
 
-- `W` / `S` or `ArrowUp` / `ArrowDown` to move.
-- Mouse or touch drag on the arena also controls your paddle.
-- `Space` serves the ball.
-- Collect glowing power-ups with your paddle. `Mega Paddle` widens your paddle, `Slow Field` slows the ball, and `Power Shot` speeds up the rally.
+## Controls
 
-## MCP Server
+- Move up: `W` or `ArrowUp`
+- Move down: `S` or `ArrowDown`
+- Serve: `Space`
+- Mouse or touch: drag inside the arena
+- Pause or reset: use the buttons in the control panel
 
-Run the local MCP server:
+## Difficulty
+
+Use the **Easy**, **Medium**, and **Hard** buttons to change the match speed and challenge.
+
+## Power-Ups
+
+Power-ups appear during live rallies. Both you and Codex can collect side pickups.
+
+- **Mega Paddle**: temporarily makes the collecting paddle taller.
+- **Slow Field**: slows the ball.
+- **Power Shot**: arms the collecting side; the next paddle hit fires a faster shot.
+
+The HUD shows:
+
+- **Your power**
+- **Arena pickup**
+- **Codex power**
+
+## Run the Codex Paddle Controller
+
+The Codex paddle only moves when fresh commands are written. To manually start and stop the opponent controller, open a second terminal in this folder and run:
+
+```bash
+npm run controller
+```
+
+Stop it anytime with `Ctrl+C`.
+
+You can also run it for a fixed time. For example, on PowerShell:
+
+```powershell
+$env:PONG_CONTROLLER_MS=60000; npm run controller
+```
+
+That runs the controller for 60 seconds.
+
+## Optional MCP Server
+
+This project also includes a small MCP server for Codex-compatible clients:
 
 ```bash
 npm run mcp
 ```
 
-The server speaks MCP over stdio and exposes:
+It exposes two tools:
 
-- `pong_get_state`: reads the latest live game state for Codex.
-- `pong_set_move`: lets Codex explicitly command `up`, `down`, or `hold`.
+- `pong_get_state`: reads the latest live game state.
+- `pong_set_move`: commands the Codex paddle to move `up`, `down`, or `hold`.
 
-Connection logs are written to `mcp-connection.log`. The MCP server logs the actual MCP client name when it is provided. The game bridge identifies itself as `pingpong-game-bridge`; the Codex app may show a different client name depending on how it initializes MCP.
-
-Live browser gameplay also writes to the same log. When Codex controls the paddle, you should see `mcp client called tool` for `pong_set_move`, then `gameplay used codex mcp command`. If Codex has not sent a fresh move, you should see `gameplay waiting for codex mcp command`. When the player collects a power-up, you should see `game event` with `type` set to `power_collected`.
-
-Example Codex MCP config entry:
+Example MCP config:
 
 ```json
 {
@@ -51,4 +95,16 @@ Example Codex MCP config entry:
 }
 ```
 
-The browser game does not move the Codex paddle with local AI, and the MCP server does not calculate bot moves. The paddle moves only from explicit Codex commands sent through `pong_set_move`.
+## Logs and State Files
+
+The game writes local runtime files while it is running:
+
+- `pong-live-state.json`: latest game state from the browser.
+- `pong-codex-command.json`: latest Codex paddle command.
+- `mcp-connection.log`: server, MCP, and gameplay bridge logs.
+
+If the Codex paddle stops moving, start or restart the controller:
+
+```bash
+npm run controller
+```
