@@ -1,0 +1,12 @@
+{
+  "name": "codex-pingpong",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A browser Pong game where the player faces a Codex AI opponent, with a small MCP server for Codex integration.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "mcp": "node mcp-server.js",
+    "controller": "node .codex-pong-direct-controller.mjs"
+  }
+}

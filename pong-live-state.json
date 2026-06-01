@@ -1,0 +1,14 @@
+{
+  "mode": "hard",
+  "boardHeight": 540,
+  "ballX": 0.693510943584517,
+  "ballY": 492.1208012738504,
+  "ballVx": -12.05741985408555,
+  "ballVy": -4.859899840768695,
+  "ballRadius": 9,
+  "aiPaddleX": 914,
+  "aiPaddleY": 440,
+  "aiPaddleHeight": 100,
+  "tick": 69840.30000000075,
+  "updatedAt": "2026-06-01T08:10:06.669Z"
+}

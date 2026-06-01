@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Codex PingPong</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="arena-panel" aria-label="PingPong arena">
+        <div class="scorebar">
+          <div>
+            <span class="score-label">You</span>
+            <strong id="playerScore">0</strong>
+          </div>
+          <div class="status">
+            <span id="modeBadge">Medium</span>
+            <span id="gameStatus">Press Space to serve</span>
+          </div>
+          <div>
+            <span class="score-label">Codex</span>
+            <strong id="aiScore">0</strong>
+          </div>
+        </div>
+        <div class="powerbar">
+          <div>
+            <span>Your power</span>
+            <strong id="playerPowerStatus">None</strong>
+          </div>
+          <div>
+            <span>Arena</span>
+            <strong id="powerStatus">No pickup</strong>
+          </div>
+          <div>
+            <span>Codex power</span>
+            <strong id="aiPowerStatus">None</strong>
+          </div>
+        </div>
+        <canvas id="game" width="960" height="540" aria-label="PingPong game canvas"></canvas>
+      </section>
+
+      <aside class="control-panel" aria-label="Game controls">
+        <div>
+          <p class="eyebrow">Codex AI Match</p>
+          <h1>PingPong</h1>
+          <p class="lede">Move your paddle and rally against a Codex-inspired opponent with three reaction levels.</p>
+        </div>
+
+        <div class="mode-group" role="group" aria-label="Difficulty mode">
+          <button class="mode" data-mode="easy">Easy</button>
+          <button class="mode active" data-mode="medium">Medium</button>
+          <button class="mode" data-mode="hard">Hard</button>
+        </div>
+
+        <div class="actions">
+          <button id="serveButton">Serve</button>
+          <button id="pauseButton" class="secondary">Pause</button>
+          <button id="resetButton" class="secondary">Reset</button>
+        </div>
+
+        <div class="instructions">
+          <div>
+            <span>Keyboard</span>
+            <strong>W/S or Arrow Up/Down</strong>
+          </div>
+          <div>
+            <span>Power-ups</span>
+            <strong>Both paddles can collect side pickups</strong>
+          </div>
+          <div>
+            <span>Mouse / touch</span>
+            <strong>Drag on the arena</strong>
+          </div>
+          <div>
+            <span>MCP server</span>
+            <strong>npm run mcp</strong>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <script src="game.js" type="module"></script>
+  </body>
+</html>
